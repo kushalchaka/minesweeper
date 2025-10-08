@@ -10,8 +10,8 @@ import java.awt.event.*;
 
 public class MinePanel extends JPanel implements MouseListener
 {
-	private int width = 500, height = 525;
-	private int unit_size = 25;
+	private int width = 500, height = 525; //500 525
+	private int unit_size = 16; //25
 	int numRows = (height-unit_size) / unit_size;
 	int numCols = width / unit_size;
 	private JLabel top;
@@ -20,10 +20,10 @@ public class MinePanel extends JPanel implements MouseListener
 	private JPanel centerPanel;
 	private Random rand = new Random();
 	private int numMines;
-	private ImageIcon tile = new ImageIcon("src/images/tile.png");
-	private ImageIcon mine = new ImageIcon("src/images/mine.png");
-	private ImageIcon flag = new ImageIcon("src/images/flag.png");
-	private ImageIcon blank = new ImageIcon("src/images/0.png");
+	private ImageIcon tile = new ImageIcon("images/blank.png");
+	private ImageIcon mine = new ImageIcon("images/mine.png");
+	private ImageIcon flag = new ImageIcon("images/flag.png");
+	private ImageIcon blank = new ImageIcon("images/0.png");
 	private JLabel time;
 	private long startTime, elapsedTime;
 	Timer timer = new Timer(0, new TimeListener());
@@ -40,7 +40,7 @@ public class MinePanel extends JPanel implements MouseListener
 		this.top = new JLabel("game");
 		this.add(top, BorderLayout.NORTH);
 		this.add(centerPanel, BorderLayout.CENTER);
-		str = JOptionPane.showInputDialog("Enter the Difficulty").toLowerCase();
+		str = JOptionPane.showInputDialog("Enter the Difficulty: baby, easy, medium, hard, impossible").toLowerCase();
 		String temp = "";
 		for (int x = 0; x < str.length(); x++)
 		 {
@@ -256,7 +256,7 @@ public class MinePanel extends JPanel implements MouseListener
 				//add image
 				if (counter > 0)
 				{
-					icons[row][col] = new ImageIcon("src/images/" + counter + ".png");
+					icons[row][col] = new ImageIcon("images/" + counter + ".png");
 				}
 				else
 				{
@@ -287,7 +287,7 @@ public class MinePanel extends JPanel implements MouseListener
 						labels[row][col].removeMouseListener(this);
 						if (icons[row][col].equals(mine))
 						{
-							//gameOver();
+							gameOver();
 						}
 						if (icons[row][col].equals(blank))
 						{
@@ -327,8 +327,9 @@ public class MinePanel extends JPanel implements MouseListener
 		}
 		if (win())
 		{
-			int answer = JOptionPane.showConfirmDialog(null, "You Won! Play Again?", "Game Over",JOptionPane.YES_NO_OPTION);
-			 if (answer == 0)
+			int answer = JOptionPane.showConfirmDialog(null, "You Won!", "Game Over",JOptionPane.OK_CANCEL_OPTION);
+			System.exit(0);
+			/* if (answer == 0)
 			 {
 				 str = JOptionPane.showInputDialog("Enter the Difficulty").toLowerCase();
 					String temp1 = "";
@@ -363,6 +364,7 @@ public class MinePanel extends JPanel implements MouseListener
 			 {
 				 System.exit(0);
 			 }
+			 */
 		}
 	}
 	private void showBlanks(int row, int col) 
@@ -417,8 +419,9 @@ public class MinePanel extends JPanel implements MouseListener
 	{
 		timer.stop();
 		System.out.println("L");
-		int answer = JOptionPane.showConfirmDialog(null, "You Hit a Mine and Lost :( Play Again?", "Game Over",JOptionPane.YES_NO_OPTION);
-		 if (answer == 0)
+		int answer = JOptionPane.showConfirmDialog(null, "You Hit a Mine and Lost :(", "Game Over",JOptionPane.OK_CANCEL_OPTION);
+		System.exit(0);
+		 /*if (answer == 0)
 		 {
 			 	ImageIcon temp = new ImageIcon();
 			 	for (int row = 0; row < numRows; row++)
@@ -428,7 +431,7 @@ public class MinePanel extends JPanel implements MouseListener
 			 			labels[row][col].setIcon(tile);
 			 			labels[row][col].removeMouseListener(this);
 			 			labels[row][col].addMouseListener(this);
-			 			
+
 			 		}
 			 	}
 			 	elapsedTime = 0;
@@ -452,7 +455,7 @@ public class MinePanel extends JPanel implements MouseListener
 		 {
 			 System.exit(0);
 		 }
-		
+	*/
 	}
 	private boolean win()
 	{
